@@ -1,5 +1,5 @@
-一个用SSM（spring springMVC myabtis）做的纯净版管理系统
+<h1>SSM（Spring SpringMVC MyBatis）做的纯净版管理系统</h1>
 
-·基本的CRUD
-··分页
-···排序
+<h3>基本的CRUD</h3>
+<h3>分页</h3>
+<h3>排序</h3>
