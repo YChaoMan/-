@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Microsoft Yahei";
+	background: #FFFAFA;
+}
+
+.box {
+	width: 450px;
+	height: 500px;
+	margin: 100px auto;
+	background: #E0E0E0;
+}
+
+.header {
+	background: #CDB38B;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+.section {
+	width: 300px;
+	margin: 20px auto;
+}
+
+#form div {
+	margin-bottom: 20px;
+}
+
+.nav {
+	margin-top: 30px;
+	text-align: center;
+}
+
+.nav button {
+	margin-right: 20px;
+}
+
+#form span {
+	font-size: 20px;
+	font-weight: bold;
+	color: #CD4F39;
+}

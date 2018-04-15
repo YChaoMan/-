@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.dao.GradeDao">
+    
+<!--         配置resultMap，方便接收结果集 -->
+    <resultMap type="com.entity.Grade" id="GradeResult">
+        <id column="gradeId" property="gradeId"></id>
+        <result column="userId" property="userId"></result>
+        <result column="courseNumber" property="courseNumber"></result>
+        <result column="score" property="score"></result>
+    </resultMap>
+    
+    <sql id="query">
+        SELECT gradeId, userId, courseNumber, score FROM `grade`
+    </sql>
+    
+    <select id="queryAll" resultMap="GradeResult">
+        <include refid="query"></include>
+         ORDER BY userId ASC, courseNumber ASC
+    </select>
+    
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="GradeResult">
+        <include refid="query"></include>
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                userId = #{_parameter} 
+            </if>
+        </where>
+    </select>
+    
+    <select id="queryByIdAndNumber" parameterType="com.entity.Grade" resultMap="GradeResult">
+        <include refid="query"></include>
+        WHERE userId = #{userId} AND courseNumber = #{courseNumber}
+    </select>
+    
+    <insert id="insert" parameterType="java.util.Map">
+        INSERT grade(userId, courseNumber) VALUES
+        <foreach collection="courseList" item="c" separator=",">
+            (#{userId}, #{c.courseNumber})
+        </foreach>
+    </insert>
+    
+    <delete id="delByCourseNumber" parameterType="java.lang.String">
+        DELETE FROM grade
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                 courseNumber = #{_parameter} 
+            </if>
+        </where>
+    </delete>
+     
+    <delete id="delById" parameterType="java.lang.Integer">
+        DELETE FROM grade
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                 userId = #{_parameter} 
+            </if>
+        </where>
+    </delete>
+    
+    <update id="updateById" parameterType="com.entity.Grade">
+        UPDATE grade SET score = #{score}
+        <where>
+            userId = #{userId} AND courseNumber = #{courseNumber}
+        </where> 
+    </update>
+</mapper>

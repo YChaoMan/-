@@ -1,0 +1,55 @@
+@CHARSET "UTF-8";
+body{
+  background: #FFF;
+}
+.header hr{
+  height: 3px;
+  background: linear-gradient(to right, #EE9A00, #FFF);
+  margin-bottom: 0;
+}
+.box{
+  width: 800px;
+  margin: 0 auto;
+  font-family: "Microsoft Yahei";
+  font-size: 16px;
+}
+.nav{
+  margin-top: 0;
+  width: 212px;
+  background: #4A708B;
+  text-align: center;
+}
+.nav button{
+  border: none;
+  width: 60px;
+  height: 30px;
+  margin: 10px;
+}
+.nav button:hover{
+  background: #2F4F4F;
+  color: #FFF;
+}
+table{
+  width: 100%;
+  text-align: center;
+  border: 1px solid #68838B;
+}
+tr{
+  height: 50px;
+}
+td{
+  border: 1px dashed #708090;
+  border-collapse: 0;
+  border-spacing: 0;
+}
+td:hover{
+  background: #5F9EA0;
+}
+tr:hover{
+  background: #525252;
+  color: #FFF;
+  border: 1px solid #8968CD;
+}
+td button:hover{
+  color: #556B2F;
+}

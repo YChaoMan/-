@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.dao.UserDao">
+    
+<!--         配置resultMap，方便接收结果集 -->
+    <resultMap type="com.entity.User" id="UserResult">
+        <id column="userId" property="userId"></id>
+        <result column="userName" property="userName"></result>
+        <result column="sex" property="sex"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="identity" property="identity"></result>
+        <result column="introduction" property="introduction"></result>
+        <result column="createTime" property="createTime"></result>
+        <collection property="gradeList" ofType="com.entity.Grade">
+            <id column="gradeId" property="gradeId"></id>
+            <result column="userId" property="userId"></result>
+            <result column="courseNumber" property="courseNumber"></result>
+            <result column="score" property="score"></result>
+        </collection>
+    </resultMap>
+    
+    <sql id="query">
+        SELECT userId, userName, sex, birthday, identity, createTime, introduction FROM user
+    </sql>
+    
+    <select id="queryAll" resultMap="UserResult" parameterType="java.util.Map">
+        <include refid="query"></include>
+        <choose>
+            <when test="queryMap.identity == 0 or queryMap.identity == 1">
+                WHERE identity= #{queryMap.identity}
+            </when>
+            <when test="queryMap.identity == 2">
+                WHERE queryMap.identity = 0 
+            </when>
+        </choose>
+        ORDER BY createTime DESC 
+        <choose>
+            <when test="queryMap.page.startRow != '' and queryMap.page.startRow != null">
+                LIMIT #{queryMap.page.startRow}, #{queryMap.page.pageSize}
+            </when>
+            <otherwise>
+                LIMIT 0, 10
+            </otherwise>
+        </choose>
+    </select>
+    
+    <select id="queryByLike" resultMap="UserResult" parameterType="java.util.Map">
+        <include refid="query"></include>
+        <where>
+           <if test="queryMap.condition != null and queryMap.condition != ''">
+              `user`.userId LIKE concat('%', #{queryMap.condition}, '%')
+               OR `user`.userName LIKE concat('%', #{queryMap.condition}, '%')
+<!--                OR `user`.birthday LIKE concat('%', #{queryMap.condition}, '%') -->
+               OR `user`.introduction LIKE concat('%', #{queryMap.condition}, '%')
+<!--                OR `user`.createTime LIKE concat('%', #{queryMap.condition}, '%') -->
+               <if test='queryMap.condition == "男"'>
+                   OR `user`.sex LIKE concat('%', 1, '%')
+               </if>
+               <if test='queryMap.condition == "女"'>
+                   OR `user`.sex LIKE concat('%', 0, '%')
+               </if>
+               <if test='queryMap.condition == "职工"'>
+                   OR `user`.identity ='1'
+               </if>
+               <if test='queryMap.condition == "学生"'>
+                   OR `user`.identity ='0'
+               </if>
+               LIMIT #{queryMap.page.startRow}, #{queryMap.page.pageSize}
+           </if>
+        </where>
+    </select>
+    
+    <select id="totalRow" resultMap="UserResult">
+        <include refid="query"></include>
+    </select>
+    
+    <select id="queryByName" parameterType="java.lang.String" resultType="com.entity.User">
+        <include refid="query"></include>
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                 userName = #{_parameter}
+            </if>
+        </where>
+    </select>
+    
+    <select id="queryById" parameterType="java.lang.Integer" resultType="com.entity.User">
+        <include refid="query"></include>
+         <where>
+            <if test="_parameter != null and _parameter != ''">
+                 userId = #{_parameter}
+            </if>
+        </where>
+    </select>
+    
+    <select id="queryByIdAndName" parameterType="com.entity.User" resultType="com.entity.User">
+        <include refid="query"></include>
+        where userName = #{userName} AND userId = #{userId}
+    </select>
+    
+    <select id="queryByUserInnerGradeInnerCourse" parameterType="java.util.Map" resultMap="UserResult">
+        <choose>
+            <when test="courseNumber == 'sum'">
+                SELECT u.userId,u.userName, SUM(g.score) sum  FROM user u
+                    INNER JOIN grade g ON u.userId=g.userId 
+                    INNER JOIN course c ON g.courseNumber=c.courseNumber GROUP BY u.userId ORDER BY sum
+            </when>
+            <when test="courseNumber != null and courseNumber != sum and courseNumber != '' and typeInt != 3">
+                SELECT u.userId,u.userName,c.courseNumber,g.score FROM user u INNER JOIN grade g
+                    ON u.userId=g.userId INNER JOIN course c
+                    ON g.courseNumber=c.courseNumber WHERE g.courseNumber= '${courseNumber}' ORDER BY g.score
+            </when>
+            <when test="typeInt == 3 or typeInt == 1">
+                SELECT u.userId,u.userName, g.score  FROM user u
+                    INNER JOIN grade g ON u.userId=g.userId 
+                    INNER JOIN course c ON g.courseNumber=c.courseNumber ORDER BY u.userId
+            </when>
+<!--             <otherwise> -->
+<!--                 SELECT u.userId,u.userName, g.score  FROM user u -->
+<!--                     INNER JOIN grade g ON u.userId=g.userId  -->
+<!--                     INNER JOIN course c ON g.courseNumber=c.courseNumber ORDER BY u.userId -->
+<!--             </otherwise> -->
+        </choose>
+        <if test="typeInt == 0">
+            DESC
+        </if>
+        <if test="typeInt == 1">
+            ASC
+        </if>
+    </select>
+    
+    <insert id="insert" parameterType="com.entity.User">
+        <choose>
+            <when test="introduction == null or introduction == ''">
+                INSERT INTO user(userName, sex, birthday, identity, createTime)
+                    VALUES(#{userName}, #{sex}, #{birthday}, #{identity}, #{createTime})
+            </when>
+            <otherwise>
+                INSERT INTO user(userName, sex, birthday, identity, createTime, introduction)
+                    VALUES(#{userName}, #{sex}, #{birthday}, #{identity}, #{createTime}, #{introduction})
+            </otherwise>
+        </choose>
+    </insert>
+    
+    <delete id="delById" parameterType="com.entity.User">
+        DELETE FROM user WHERE userId = #{userId}
+    </delete>
+    
+    <update id="updateById" parameterType="com.entity.User">
+        UPDATE user
+        <set>
+            userName = #{userName}, sex= #{sex}, birthday = #{birthday}, 
+                identity = #{identity}, introduction = #{introduction}
+            <where>
+                <if test="userId != null and userId != ''">
+                    userId = #{userId}
+                </if>
+            </where>
+        </set>
+    </update>
+    
+</mapper>

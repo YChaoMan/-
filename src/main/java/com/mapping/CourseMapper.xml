@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.dao.CourseDao">
+    
+<!--         配置resultMap，方便接收结果集 -->
+    <resultMap type="com.entity.Course" id="CourseResult">
+        <id column="courseId" property="courseId" jdbcType="INTEGER"></id>
+        <result column="courseNumber" property="courseNumber" jdbcType="VARCHAR"></result>
+        <result column="courseName" property="courseName" jdbcType="VARCHAR"></result>
+    </resultMap>
+    
+    <sql id="query">
+        SELECT courseId, courseNumber, courseName FROM course
+    </sql>
+    
+     <select id="queryAll" resultMap="CourseResult">
+         <include refid="query"></include>
+     </select>
+     
+     <select id="queryByCondition" parameterType="com.entity.Course" resultType="com.entity.Course">
+         <include refid="query"></include>
+         <where>
+             <choose>
+                 <when test="courseNumber != null and courseNumber != ''">
+                     AND courseNumber = #{courseNumber}
+                     <if test="courseName != null and courseName != ''">
+                         AND courseName = #{courseName}
+                     </if>
+                 </when>
+                 <when test="courseName != null and courseName != ''">
+                     AND courseName = #{courseName}
+                 </when>
+             </choose>
+         </where>
+     </select>
+     
+     <insert id="insert" parameterType="com.entity.Course">
+         INSERT INTO course(courseNumber, courseName) VALUES (#{courseNumber}, #{courseName});
+     </insert>
+     
+     <delete id="delByNumber" parameterType="com.entity.Course">
+         DELETE FROM course
+         <where>
+             <if test="courseNumber != null and courseNumber != ''">
+                courseNumber = #{courseNumber}
+             </if>
+         </where>
+     </delete>
+     
+     <update id="updateByNumber" parameterType="com.entity.Course">
+         UPDATE course
+         <set>
+             courseName = #{courseName}
+             <where>
+                 <if test="courseNumber != null and courseNumber != ''">
+                     courseNumber = #{courseNumber}
+                 </if>
+             </where>
+         </set>
+     </update>
+     
+</mapper>

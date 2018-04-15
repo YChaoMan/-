@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+body{
+  font-family: "Microsoft Yahei";
+  background: #FFFAFA;
+}
+.box{
+  width: 400px;
+  height: 300px;
+  margin: 100px auto;
+  background: #CDC1C5;
+}
+.header{
+  background: #EAEAEA;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+}
+.section{
+  width: 300px;
+  margin: 20px auto;
+}
+#form div{
+  margin-bottom: 20px;
+}
+.nav{
+  margin-top: 30px;
+  text-align: center;
+}
+.nav button{
+  margin-right: 20px;
+}

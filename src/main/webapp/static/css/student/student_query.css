@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+hr{
+  background: linear-gradient(to left, #CD6090, #BDBDBD);
+  height: 2px;
+}
+.box{
+  width: 97%;
+  margin: 0 auto;
+}
+.header{
+  height: 60px;
+  line-height: 60px;
+  font-size: 18px;
+  background: linear-gradient(to right, #CD661D, #FFF);
+  color: #B0E0E6;
+}
+.section{
+  border-right: 1px solid #C4C4C4;
+  border-left: 1px solid #C4C4C4;
+}
+.section table{
+  width: 100%;
+  text-align: center;
+  font-family: "Microsoft Yahei";
+}
+tr{
+  height: 50px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+td{
+  border-left: 1px solid #000;
+}
+td:first-child{
+  border-left: none;
+}
+tr:hover{
+  background: #CDC673;
+}
+td:hover{
+  background: #CDB5CD;
+}
+.nav{
+  margin: 20px;
+}

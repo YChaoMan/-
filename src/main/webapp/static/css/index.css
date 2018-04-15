@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+body{
+   background: url("/Spring-MybatisDemo/static/img/index.jpg");
+   background-size: 100%;
+}
+.panel-title{
+  font-size:20px;
+  font-family:"Microsoft Yahei";
+}
+.section{
+  width:400px;
+  height:auto;
+  margin:100px auto;
+}
+form{
+  width:350px;
+  margin:10px auto;
+}
+form input{
+  border:none;
+  outline:none;
+}
+.name, .word{
+  border:1px solid #CCC;
+  margin-bottom:30px;
+}
+form span{
+  margin:10px;
+}
+.button1, .button2{
+  width: 46%;
+  display: inline-block;
+}
+.button1{
+  margin-right:13px;
+}

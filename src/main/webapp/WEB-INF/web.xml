@@ -1,0 +1,70 @@
+<web-app
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+    
+    <!-- 加载Spring配置文件 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-mybatis.xml</param-value>
+    </context-param>
+    
+    <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>    
+    </listener> 
+    
+  <!-- 过滤器，初始化的属性有，encoding默认字符集，forceEncoding强制使用该字符集，即使页面设置了编码 -->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <!-- 匹配url -->
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+<!--    SpringMVC.加载过滤器，拦截所有的请求。配置参数，上下文路径 -->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+<!--     放行静态资源，其中实现的方式之一 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    
+<!--     <servlet-mapping> -->
+<!--          <servlet-name>default</servlet-name> -->
+<!--          <url-pattern>*.js</url-pattern> -->
+<!--     </servlet-mapping> -->
+    
+<!--     <servlet-mapping> -->
+<!--          <servlet-name>default</servlet-name> -->
+<!--          <url-pattern>*.css</url-pattern> -->
+<!--      </servlet-mapping> -->
+    
+    
+<!--     匹配的url格式为: /xx，如/login -->
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

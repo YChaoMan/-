@@ -1,0 +1,3 @@
+Jdk 8.0
+Tomcat 8.0
+Eclipse 4.5.2
