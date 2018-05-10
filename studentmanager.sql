@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-04-15 09:58:04
+Date: 2018-05-10 12:20:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,7 +47,7 @@ CREATE TABLE `grade` (
   `courseNumber` varchar(60) NOT NULL COMMENT '课程编号，课程表的外键',
   `score` decimal(4,1) DEFAULT '0.0' COMMENT '成绩',
   PRIMARY KEY (`gradeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 COMMENT='成绩表，通过用户表的编号和课程表的编号相关联';
+) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=utf8 COMMENT='成绩表，通过用户表的编号和课程表的编号相关联';
 
 -- ----------------------------
 -- Records of grade
@@ -115,6 +115,13 @@ INSERT INTO `grade` VALUES ('198', '35', 'KC06', '0.0');
 INSERT INTO `grade` VALUES ('199', '28', 'KC06', '28.0');
 INSERT INTO `grade` VALUES ('200', '3', 'KC06', '0.0');
 INSERT INTO `grade` VALUES ('201', '4', 'KC06', '0.0');
+INSERT INTO `grade` VALUES ('258', '85', 'KC00', '0.0');
+INSERT INTO `grade` VALUES ('259', '85', 'KC01', '0.0');
+INSERT INTO `grade` VALUES ('260', '85', 'KC02', '0.0');
+INSERT INTO `grade` VALUES ('261', '85', 'KC03', '0.0');
+INSERT INTO `grade` VALUES ('262', '85', 'KC04', '0.0');
+INSERT INTO `grade` VALUES ('263', '85', 'KC05', '0.0');
+INSERT INTO `grade` VALUES ('264', '85', 'KC06', '0.0');
 
 -- ----------------------------
 -- Table structure for user
@@ -129,7 +136,7 @@ CREATE TABLE `user` (
   `introduction` varchar(40) DEFAULT '该用户很懒,什么也没写' COMMENT '个人介绍',
   `createTime` datetime DEFAULT NULL COMMENT '创建日期',
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
@@ -150,4 +157,31 @@ INSERT INTO `user` VALUES ('67', 'Tom', '1', '\0', '2018-02-28', '该用户很�
 INSERT INTO `user` VALUES ('68', 'Lucy', '1', '\0', '2018-02-20', '该用户很懒,什么也没写', '2018-02-19 12:48:08');
 INSERT INTO `user` VALUES ('69', 'Mr. Yan', '1', '', '2018-02-15', '嗯嗯Mr.Yan就是我', '2018-02-19 12:49:57');
 INSERT INTO `user` VALUES ('72', 'HelloHello', '0', '', '2018-03-01', '该用户很懒,什么也没写/', '2018-03-21 19:26:33');
+INSERT INTO `user` VALUES ('85', '测试员甲', '1', '\0', '2018-04-29', '该用户很懒,什么也没写', '2018-05-10 12:18:09');
+
+-- ----------------------------
+-- Table structure for user_add
+-- ----------------------------
+DROP TABLE IF EXISTS `user_add`;
+CREATE TABLE `user_add` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL COMMENT '用户的编号',
+  `add_flag` tinyint(1) DEFAULT '0' COMMENT '新增成绩的编号',
+  `flag` tinyint(1) DEFAULT '0' COMMENT '删除编号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='用户成绩新增标识';
+
+-- ----------------------------
+-- Records of user_add
+-- ----------------------------
+INSERT INTO `user_add` VALUES ('1', '2', '1', '0');
+INSERT INTO `user_add` VALUES ('2', '3', '1', '0');
+INSERT INTO `user_add` VALUES ('3', '4', '1', '0');
+INSERT INTO `user_add` VALUES ('4', '28', '1', '0');
+INSERT INTO `user_add` VALUES ('5', '33', '1', '0');
+INSERT INTO `user_add` VALUES ('6', '35', '1', '0');
+INSERT INTO `user_add` VALUES ('7', '51', '1', '0');
+INSERT INTO `user_add` VALUES ('8', '67', '1', '0');
+INSERT INTO `user_add` VALUES ('9', '68', '1', '0');
+INSERT INTO `user_add` VALUES ('18', '85', '0', '0');
 SET FOREIGN_KEY_CHECKS=1;
