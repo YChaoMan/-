@@ -49,7 +49,7 @@
     		 type : "post",
     		 dataType: "json",
     		 success : function (result) {
-    			 alert("result >> " + result)
+//     			 alert("result >> " + result)
     			 if (result.count == 1) {
     				 alert("新增用户<" + result.userName + ">成功~`");
     				 window.location.href = "<%= basePath %>/RedirectController/jspSendRedirect/user-student_query";
