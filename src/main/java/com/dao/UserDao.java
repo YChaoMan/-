@@ -1,4 +1,4 @@
-package com.dao;
+ï»¿package com.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -8,37 +8,37 @@ import org.apache.ibatis.annotations.Param;
 import com.entity.User;
 
 /**
- * ÓÃ»§±íÊı¾İ¿â²Ù×÷½Ó¿Ú
+ * ç”¨æˆ·è¡¨æ•°æ®åº“æ“ä½œæ¥å£
  */
 public interface UserDao {
 
-    // ĞÂÔö¿Î³Ì
+    // æ–°å¢è¯¾ç¨‹
     int insert(User user);
     
-    // ¸ù¾İÉí·İ²éÑ¯²éÕÒÓÃ»§,¡¾È«²¿²éÑ¯¡¿ org.apache.ibatis.annotations.Param
+    // æ ¹æ®èº«ä»½æŸ¥è¯¢æŸ¥æ‰¾ç”¨æˆ·,ã€å…¨éƒ¨æŸ¥è¯¢ã€‘ org.apache.ibatis.annotations.Param
     List<User> queryAll(@Param("queryMap") Map<String, Object> queryMap);
     
-    // Ä£ºı²éÑ¯
+    // æ¨¡ç³ŠæŸ¥è¯¢
     List<User> queryByLike(@Param("queryMap") Map<String, Object> queryMap);
     
-    // ²éÑ¯×Ü¼ÇÂ¼
+    // æŸ¥è¯¢æ€»è®°å½•
     List<User> totalRow();
      
-    // ¸ù¾İÃû³Æ²éÕÒÓÃ»§
+    // æ ¹æ®åç§°æŸ¥æ‰¾ç”¨æˆ·
     User queryByName(String userName);
     
-    // É¾³ıÓÃ»§¡¾¸ù¾İÓÃ»§±àºÅ½øĞĞÉ¾³ı¡¿
+    // åˆ é™¤ç”¨æˆ·ã€æ ¹æ®ç”¨æˆ·ç¼–å·è¿›è¡Œåˆ é™¤ã€‘
     int delById(User user);
     
-    // ĞŞ¸ÄÓÃ»§£¬¡¾ĞŞ¸ÄĞÕÃû£¬ĞÔ±ğ£¬³öÉúÈÕÆÚ£¬¸öÈË½éÉÜ¡¿
+    // ä¿®æ”¹ç”¨æˆ·ï¼Œã€ä¿®æ”¹å§“åï¼Œæ€§åˆ«ï¼Œå‡ºç”Ÿæ—¥æœŸï¼Œä¸ªäººä»‹ç»ã€‘
     int updateById(User user);
     
-    // Ìõ¼ş²éÑ¯£¬¡¾¸ù¾İÓÃ»§id½øĞĞ²éÕÒ¡¿
+    // æ¡ä»¶æŸ¥è¯¢ï¼Œã€æ ¹æ®ç”¨æˆ·idè¿›è¡ŒæŸ¥æ‰¾ã€‘
     User queryById(Integer userId);
     
-    // Ìõ¼ş²éÑ¯£¬¡¾¸ù¾İ±àºÅºÍÓÃ»§Ãû³Æ½øĞĞ²éÕÒ¡¿
+    // æ¡ä»¶æŸ¥è¯¢ï¼Œã€æ ¹æ®ç¼–å·å’Œç”¨æˆ·åç§°è¿›è¡ŒæŸ¥æ‰¾ã€‘
     User queryByIdAndName(User user);
     
-    // Á¬±í²éÑ¯
+    // è¿è¡¨æŸ¥è¯¢
     List<User> queryByUserInnerGradeInnerCourse(Map<String, Object> map);
 }
