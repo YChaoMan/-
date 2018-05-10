@@ -105,17 +105,24 @@
             <when test="courseNumber == 'sum'">
                 SELECT u.userId,u.userName, SUM(g.score) sum  FROM user u
                     INNER JOIN grade g ON u.userId=g.userId 
-                    INNER JOIN course c ON g.courseNumber=c.courseNumber GROUP BY u.userId ORDER BY sum
+                    LEFT JOIN user_add ua ON g.userId = ua.user_id
+                    INNER JOIN course c ON g.courseNumber=c.courseNumber
+                    WHERE ua.add_flag = 1 GROUP BY u.userId ORDER BY sum
             </when>
             <when test="courseNumber != null and courseNumber != sum and courseNumber != '' and typeInt != 3">
-                SELECT u.userId,u.userName,c.courseNumber,g.score FROM user u INNER JOIN grade g
-                    ON u.userId=g.userId INNER JOIN course c
-                    ON g.courseNumber=c.courseNumber WHERE g.courseNumber= '${courseNumber}' ORDER BY g.score
+                SELECT u.userId,u.userName,c.courseNumber,g.score FROM user u 
+                    INNER JOIN grade g ON u.userId=g.userId
+                    LEFT JOIN user_add ua ON g.userId = ua.user_id
+                    INNER JOIN course c ON g.courseNumber=c.courseNumber 
+                    WHERE g.courseNumber= '${courseNumber}'AND ua.add_flag = 1 ORDER BY g.score
             </when>
             <when test="typeInt == 3 or typeInt == 1">
                 SELECT u.userId,u.userName, g.score  FROM user u
                     INNER JOIN grade g ON u.userId=g.userId 
-                    INNER JOIN course c ON g.courseNumber=c.courseNumber ORDER BY u.userId
+                    LEFT JOIN user_add ua ON g.userId = ua.user_id
+                    INNER JOIN course c ON g.courseNumber=c.courseNumber
+                    WHERE ua.add_flag = 1
+                    ORDER BY u.userId
             </when>
 <!--             <otherwise> -->
 <!--                 SELECT u.userId,u.userName, g.score  FROM user u -->

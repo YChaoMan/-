@@ -19,7 +19,13 @@
     
     <select id="queryAll" resultMap="GradeResult">
         <include refid="query"></include>
-         ORDER BY userId ASC, courseNumber ASC
+        LEFT JOIN user_add ON grade.userId = user_add.user_id 
+        WHERE user_add.add_flag = 1
+        ORDER BY userId ASC, courseNumber ASC
+    </select>
+    
+    <select id="queryByGroup" resultMap="GradeResult">
+        SELECT userId FROM `grade` GROUP BY userId;
     </select>
     
     <select id="queryById" parameterType="java.lang.Integer" resultMap="GradeResult">
