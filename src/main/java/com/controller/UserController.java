@@ -1,4 +1,4 @@
-package com.controller;
+ï»¿package com.controller;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,41 +35,41 @@ public class UserController {
     private GradeService gradeService;
     
     /*
-     * È«²¿²éÑ¯
-     * typeÊÇÅÅĞòµÄ·½Ê½£¬identityÊÇÓÃ»§Éí·İ£¬courseNumberÊÇ¿Î³Ì±àºÅ
+     * å…¨éƒ¨æŸ¥è¯¢
+     * typeæ˜¯æ’åºçš„æ–¹å¼ï¼Œidentityæ˜¯ç”¨æˆ·èº«ä»½ï¼ŒcourseNumberæ˜¯è¯¾ç¨‹ç¼–å·
      */
     @ResponseBody
     @RequestMapping(value="/selectAll", method = RequestMethod.POST)
     public Map<String, Object> selectAll(Page page, String type, String identity, String courseNumber, String condition) {
         int pageSize = 10;
         int totalRow = 0;
-        page.setPageSize(pageSize); // ÉèÖÃÏÔÊ¾¼ÇÂ¼Êı
+        page.setPageSize(pageSize); // è®¾ç½®æ˜¾ç¤ºè®°å½•æ•°
         
         if (identity == null || "".equals(identity) || "undefined".equals(identity)) {
-            identity = "3"; // ±£³Ö²éÑ¯µÄ×´Ì¬£¬Ä¬ÈÏÎª3¡£°´ÕÕ´´½¨Ê±¼ä½øĞĞÅÅĞò
+            identity = "3"; // ä¿æŒæŸ¥è¯¢çš„çŠ¶æ€ï¼Œé»˜è®¤ä¸º3ã€‚æŒ‰ç…§åˆ›å»ºæ—¶é—´è¿›è¡Œæ’åº
         }
         int currentPage = page.getCurrentPage();
-        if (currentPage > page.getTotalPage()) {    // Èç¹ûÏÂÒ»Ò³´óÓÚ×ÜÒ³Êı
+        if (currentPage > page.getTotalPage()) {    // å¦‚æœä¸‹ä¸€é¡µå¤§äºæ€»é¡µæ•°
             page.setCurrentPage(page.getTotalPage());
-        } else if (currentPage <= 0) { // Èç¹ûµ±Ç°Ò³µÍĞ¡ÓÚµÈÓÚ0£¬Èç¹ûÎª1
-            page.setCurrentPage(1); // ÉèÖÃµ±Ç°Ò³Êı
+        } else if (currentPage <= 0) { // å¦‚æœå½“å‰é¡µä½å°äºç­‰äº0ï¼Œå¦‚æœä¸º1
+            page.setCurrentPage(1); // è®¾ç½®å½“å‰é¡µæ•°
         }
-        page.setStartRow((page.getCurrentPage() - 1) * page.getPageSize());   // ÉèÖÃµ±Ç°¼ÇÂ¼Êı
+        page.setStartRow((page.getCurrentPage() - 1) * page.getPageSize());   // è®¾ç½®å½“å‰è®°å½•æ•°
         
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put("page", page);
         queryMap.put("identity", identity);
         queryMap.put("condition", condition);
         List<User> userList = userService.queryAll(queryMap);
-        if ("3".equals(identity)) { // Èç¹ûÊÇÄ¬ÈÏµÄÉí·İÅÅĞò
-            totalRow = userService.getTotalRow(); // »ñÈ¡×Ü¼ÇÂ¼Êı
-        } else {    // Èç¹ûÑ¡ÔñÁËÉí·İÊÇÑ§Éú/ÀÏÊ¦
-            totalRow = userList.size(); // »ñÈ¡×Ü¼ÇÂ¼Êı
+        if ("3".equals(identity)) { // å¦‚æœæ˜¯é»˜è®¤çš„èº«ä»½æ’åº
+            totalRow = userService.getTotalRow(); // è·å–æ€»è®°å½•æ•°
+        } else {    // å¦‚æœé€‰æ‹©äº†èº«ä»½æ˜¯å­¦ç”Ÿ/è€å¸ˆ
+            totalRow = userList.size(); // è·å–æ€»è®°å½•æ•°
         }
-        page.setTotalRow(totalRow); // ÉèÖÃ×Ü¼ÇÂ¼Êı
+        page.setTotalRow(totalRow); // è®¾ç½®æ€»è®°å½•æ•°
         
         int totalPage = (totalRow % page.getPageSize() == 0)? 1 : totalRow / page.getPageSize() + 1;
-        page.setTotalPage(totalPage);   // ÉèÖÃ×ÜÒ³Êı
+        page.setTotalPage(totalPage);   // è®¾ç½®æ€»é¡µæ•°
         
         List<Grade> gradeList = gradeService.queryAll();
         List<Course> courseList = courseService.queryAll();
@@ -96,7 +96,7 @@ public class UserController {
     }
     
     /*
-     * ¸ù¾İ±àºÅ²éÕÒµ±Ç°ÓÃ»§
+     * æ ¹æ®ç¼–å·æŸ¥æ‰¾å½“å‰ç”¨æˆ·
      */
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     public String queryById(HttpServletRequest request, String userId) {
@@ -109,7 +109,7 @@ public class UserController {
     }
     
     /*
-     * ¸ù¾İÓÃ»§µÄ±àºÅ½øĞĞĞŞ¸Ä¸öÈËĞÅÏ¢
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å·è¿›è¡Œä¿®æ”¹ä¸ªäººä¿¡æ¯
      */
     @ResponseBody
     @RequestMapping(value = "/updateById", method = RequestMethod.POST)
@@ -123,7 +123,7 @@ public class UserController {
     }
     
     /*
-     * ¸ù¾İÓÃ»§µÄ±àºÅ½øĞĞÉ¾³ıÓÃ»§
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å·è¿›è¡Œåˆ é™¤ç”¨æˆ·
      */
     @ResponseBody
     @RequestMapping(value = "/delById", method = RequestMethod.POST)
@@ -139,30 +139,11 @@ public class UserController {
     }
     
     /*
-     * ĞÂÔöÓÃ»§
+     * æ–°å¢ç”¨æˆ·
      */
     @ResponseBody
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public Map<String, Object> saveUser(User user) {
-//        int count = 0;
-//        String introduction = user.getIntroduction();
-//        if (introduction == null) { // Èç¹û¸öÈË½éÉÜÎª¿ÕµÄ»°
-//            user.setIntroduction("");
-//        }
-//        user.setCreateTime(new Timestamp(new Date().getTime()));
-//        User userByGrade = userService.queryByName(user.getUserName()); // ÊÇ·ñ´æÔÚ¸ÃÁËÃû×Ö
-//        if (userByGrade == null) {
-//            userService.insert(user);
-//            List<Course> courseList = courseService.queryAll();
-//            if (!user.isIdentity()) {   // Èç¹ûĞÂÔöµÄÉí·İ²»ÊÇÀÏÊ¦£¬ÄÇÃ´¾ÍÖ±½ÓĞÂÔö¸ÃÓÃ»§µÄ³É¼¨
-//                user = userService.queryByName(user.getUserName());
-//                Map<String, Object> map2 = new HashMap<String, Object>();
-//                map2.put("userId", user.getUserId());
-//                map2.put("courseList", courseList);
-//                gradeService.insert(map2);
-//                count++;
-//            }
-//        }
         int count = userService.insert(user);
         Map<String, Object> map = new HashMap<String, Object>();
         if (user.getUserName() != null && !"".equals(user.getUserName())) {

@@ -1,4 +1,4 @@
-package com.controller;
+ï»¿package com.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ public class GradeController {
     private GradeService gradeService;
 
     /*
-     * ¸ù¾İÓÃ»§µÄ±àºÅÀ´½øĞĞ²éÑ¯³É¼¨
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å·æ¥è¿›è¡ŒæŸ¥è¯¢æˆç»©
      */
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     public String queryById(HttpServletRequest request, String userId) {
@@ -52,10 +52,10 @@ public class GradeController {
     }
     
     /*
-     * ¸ù¾İÓÃ»§µÄ±àºÅÀ´½øĞĞ¸üĞÂ³É¼¨
-     * userId,ÓÃ»§±àºÅ
-     * courseNumber,¿Î³Ì±àºÅ
-     * score,³É¼¨
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å·æ¥è¿›è¡Œæ›´æ–°æˆç»©
+     * userId,ç”¨æˆ·ç¼–å·
+     * courseNumber,è¯¾ç¨‹ç¼–å·
+     * score,æˆç»©
      */
     @ResponseBody
     @RequestMapping(value = "/updateById", method = RequestMethod.POST)
@@ -75,7 +75,7 @@ public class GradeController {
 //        course2.setCourseNumber(courseNumber);
 //        Course course = courseService.queryByCondition(course2);
 //        
-//        if (course == null) {   // Èç¹ûÔÚ¿Î³Ì±íÖĞÕÒ²»µ½¸Ã¿Î³Ì
+//        if (course == null) {   // å¦‚æœåœ¨è¯¾ç¨‹è¡¨ä¸­æ‰¾ä¸åˆ°è¯¥è¯¾ç¨‹
 //            return null;
 //        }
 //        Grade grades = new Grade();
@@ -100,9 +100,9 @@ public class GradeController {
     }
     
     /*
-     * ¸ù¾İÓÃ»§µÄ±à·¢¡¢¿Î³ÌÃû³ÆÀ´½øĞĞÉ¾³ı³É¼¨
-     * userId,ÓÃ»§±àºÅ
-     * courseNumber,¿Î³Ì±àºÅ
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å‘ã€è¯¾ç¨‹åç§°æ¥è¿›è¡Œåˆ é™¤æˆç»©
+     * userId,ç”¨æˆ·ç¼–å·
+     * courseNumber,è¯¾ç¨‹ç¼–å·
      */
     @ResponseBody
     @RequestMapping(value = "/delByIdAndCourseNumber", method = RequestMethod.POST)
@@ -135,11 +135,11 @@ public class GradeController {
     }
     
     /*
-     * ÕâÀïĞÂÔö±¾ÖÊÉÏÊÇĞŞ¸Ä³É¼¨.
-     * ¸ù¾İÓÃ»§µÄ±àºÅºÍ¿Î³ÌÃû³Æ½øĞĞ²éÕÒ
-     * userId,ÓÃ»§µÄ±àºÅ
-     * score,ÊäÈëµÄ³É¼¨
-     * courseNumber,ÓÃ»§ĞÂÔöµÄ¿Î³Ì±àºÅ
+     * è¿™é‡Œæ–°å¢æœ¬è´¨ä¸Šæ˜¯ä¿®æ”¹æˆç»©.
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å·å’Œè¯¾ç¨‹åç§°è¿›è¡ŒæŸ¥æ‰¾
+     * userId,ç”¨æˆ·çš„ç¼–å·
+     * score,è¾“å…¥çš„æˆç»©
+     * courseNumber,ç”¨æˆ·æ–°å¢çš„è¯¾ç¨‹ç¼–å·
      */
     @ResponseBody
     @RequestMapping(value = "/saveById", method = RequestMethod.POST)
@@ -157,7 +157,7 @@ public class GradeController {
 //        if (grade == null) {
 //            return null;
 //        }
-//        if (grade.getScore() == null) { // µ±¸ÃÓÃ»§µÄÕâÃÅ¿Î³Ì·ÖÊı²»´æÔÚÊ±
+//        if (grade.getScore() == null) { // å½“è¯¥ç”¨æˆ·çš„è¿™é—¨è¯¾ç¨‹åˆ†æ•°ä¸å­˜åœ¨æ—¶
 //            grade.setScore(0.0);
 //        }
         Map<String, Object> map = new HashMap<String, Object>();
@@ -167,7 +167,7 @@ public class GradeController {
         int count = gradeService.saveScoreByIdAndCourseNumber(grade);
         User user = userService.queryById(String.valueOf(grade.getUserId()));
 //        User user = userService.queryById(Integer.valueOf(userId));
-//        if (user != null && !user.isIdentity()) {   // Èç¹û¸ÃÑ§Éú´æÔÚ²¢ÇÒÉí·İÊÇÑ§Éú
+//        if (user != null && !user.isIdentity()) {   // å¦‚æœè¯¥å­¦ç”Ÿå­˜åœ¨å¹¶ä¸”èº«ä»½æ˜¯å­¦ç”Ÿ
 //            if (grade.getScore() == 0.0) {
 //                grade.setUserId(Integer.valueOf(userId));
 //                grade.setCourseNumber(courseNumber);

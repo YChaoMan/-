@@ -1,11 +1,11 @@
-package com.controller;
+ï»¿package com.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
- * ¸ÃControllerÓÃÓÚÒ³ÃæµÄÖĞ×ª
+ * è¯¥Controllerç”¨äºé¡µé¢çš„ä¸­è½¬
  */
 @Controller
 @RequestMapping("/RedirectController")
@@ -13,10 +13,10 @@ public class RedirectController {
 
     @RequestMapping("/jspSendRedirect/{type}")
     public String jspSendRedirect(@PathVariable("type") String type) {
-        if (type == null || "".equals(type)) {  // Èç¹ûÃ»ÓĞ·µ»ØµÄÒ³ÃæÊ±Ò»¼¶£¬ÄÇÃ´¾ÍÖ±½Ó·µ»Ø
+        if (type == null || "".equals(type)) {  // å¦‚æœæ²¡æœ‰è¿”å›çš„é¡µé¢æ—¶ä¸€çº§ï¼Œé‚£ä¹ˆå°±ç›´æ¥è¿”å›
             return type;
         }
-        String[] types = type.split("-");   // Èç¹û´æÔÚ·Ö¸ô·û-£¬Ôò·Ö¸î£¬»ñÈ¡ÉÏÏÂ¼¶
+        String[] types = type.split("-");   // å¦‚æœå­˜åœ¨åˆ†éš”ç¬¦-ï¼Œåˆ™åˆ†å‰²ï¼Œè·å–ä¸Šä¸‹çº§
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < types.length; i++) {
             if (i != 0) {

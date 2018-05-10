@@ -1,4 +1,4 @@
-package com.controller;
+ï»¿package com.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +29,7 @@ public class CourseController {
 //    private GradeService gradeService;
     
     /*
-     * ²éÑ¯È«²¿µÄ¿Î³ÌĞÅÏ¢
+     * æŸ¥è¯¢å…¨éƒ¨çš„è¯¾ç¨‹ä¿¡æ¯
      */
     @ResponseBody
     @RequestMapping(value = "/selectAll", method = RequestMethod.POST)
@@ -43,8 +43,8 @@ public class CourseController {
     }
     
     /*
-     * ¸ù¾İ¿Î³Ì±àºÅ²éÑ¯,¿Î³ÌĞÅÏ¢
-     * courseNumber,¿Î³Ì±àºÅ
+     * æ ¹æ®è¯¾ç¨‹ç¼–å·æŸ¥è¯¢,è¯¾ç¨‹ä¿¡æ¯
+     * courseNumber,è¯¾ç¨‹ç¼–å·
      */
     @RequestMapping(value = "/selectByCourseNumber", method = RequestMethod.GET)
     public String selectByCourseNumber(HttpServletRequest request, String courseNumber) {
@@ -57,7 +57,7 @@ public class CourseController {
     }
     
     /*
-     * É¾³ı¿Î³Ì£¬¸ù¾İ¿Î³Ì±àºÅ
+     * åˆ é™¤è¯¾ç¨‹ï¼Œæ ¹æ®è¯¾ç¨‹ç¼–å·
      */
     @ResponseBody
     @RequestMapping(value = "/delByNumber", method = RequestMethod.POST)
@@ -69,7 +69,7 @@ public class CourseController {
         Course courses = new Course();
         courses.setCourseNumber(courseNumber);
         Map<String, Object> map = new HashMap<String, Object>();
-        Course course = courseService.queryByCondition(courses);    // ÎªÁË²é³ö¿Î³ÌÃû³Æ
+        Course course = courseService.queryByCondition(courses);    // ä¸ºäº†æŸ¥å‡ºè¯¾ç¨‹åç§°
         int count = courseService.delByNumber(courseNumber);
 //        if (course != null) {
 //            int count = gradeService.delByCourseNumber(courseNumber);
@@ -83,7 +83,7 @@ public class CourseController {
     }
     
     /*
-     * Ìí¼Ó¿Î³ÌĞÅÏ¢
+     * æ·»åŠ è¯¾ç¨‹ä¿¡æ¯
      */
     @ResponseBody
     @RequestMapping(value = "/saveCourse", method = RequestMethod.POST)
@@ -99,7 +99,7 @@ public class CourseController {
 //        }
 //        Course courses = new Course();
 //        courses.setCourseNumber(courseNumber);
-//        if (courseService.queryByCondition(courses) == null) {    // Èç¹ûÕÒ²»¸Ã¿Î³Ì±àºÅÄÇÃ´¾ÍĞÂÔö
+//        if (courseService.queryByCondition(courses) == null) {    // å¦‚æœæ‰¾ä¸è¯¥è¯¾ç¨‹ç¼–å·é‚£ä¹ˆå°±æ–°å¢
 //            courseService.insert(course);
 //            count++;
 //            List<Course> courseList = new ArrayList<Course>();
@@ -110,7 +110,7 @@ public class CourseController {
 //                    Map<String, Object> maps = new HashMap<String, Object>();
 //                    maps.put("userId", user.getUserId());
 //                    maps.put("courseList", courseList);
-//                    gradeService.insert(maps);  // ²åÈë¿Î³ÌµÄÊ±ºòÒª¶Ô³É¼¨±í¸üĞÂÒ»´Î
+//                    gradeService.insert(maps);  // æ’å…¥è¯¾ç¨‹çš„æ—¶å€™è¦å¯¹æˆç»©è¡¨æ›´æ–°ä¸€æ¬¡
 //                }
 //            }
 //        }
@@ -125,7 +125,7 @@ public class CourseController {
     
     
     /*
-     * ĞŞ¸Ä¿Î³ÌĞÅÏ¢
+     * ä¿®æ”¹è¯¾ç¨‹ä¿¡æ¯
      */
     @ResponseBody
     @RequestMapping(value = "/updateByCourseNumber", method = RequestMethod.POST)
@@ -143,7 +143,7 @@ public class CourseController {
 //        if (courseBefore != null) {
 //            if (courseName != null && !"".equals(courseName)) {
 //                courses.setCourseNumber("");
-//                if (courseService.queryByCondition(courses) == null) {    // Èç¹û¸Ã¿Î³ÌÃû³Æ²»´æÔÚ
+//                if (courseService.queryByCondition(courses) == null) {    // å¦‚æœè¯¥è¯¾ç¨‹åç§°ä¸å­˜åœ¨
 //                    courseBefore.setCourseNumber(courseNumber);
 //                    courseBefore.setCourseName(courseName);
 //                    count = courseService.updateByNumber(courseBefore);

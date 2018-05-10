@@ -1,4 +1,4 @@
-package com.controller;
+ï»¿package com.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class StudentController {
     private GradeService gradeService;
 
     /*
-     * Ñ§ÉúµÇÂ¼³É¹¦µÄControllerÖĞµÄ·½·¨,·µ»Ø²éÑ¯µ½µÄ¸öÈËĞÅÏ¢¡¢³É¼¨¡¢¿Î³Ì
+     * å­¦ç”Ÿç™»å½•æˆåŠŸçš„Controllerä¸­çš„æ–¹æ³•,è¿”å›æŸ¥è¯¢åˆ°çš„ä¸ªäººä¿¡æ¯ã€æˆç»©ã€è¯¾ç¨‹
      */
     @RequestMapping(value = "/studentLogin", method = RequestMethod.GET)
     public String studentLogin(HttpServletRequest request, String userName, String userId) {
@@ -53,7 +53,7 @@ public class StudentController {
     }
     
     /*
-     * ¸ù¾İ±àºÅÀ´²éÑ¯Ñ§ÉúµÄĞÅÏ¢
+     * æ ¹æ®ç¼–å·æ¥æŸ¥è¯¢å­¦ç”Ÿçš„ä¿¡æ¯
      */
     @RequestMapping(value = "/selectStudentById", method = RequestMethod.GET)
     public String selectStudentById(HttpServletRequest request, String userId) {
@@ -65,8 +65,8 @@ public class StudentController {
     }
     
     /*
-     * ¸ù¾İÑ§Éú¶ÔÏóÀ´½øĞĞ¸üĞÂ
-     * ´Ë´¦»ñÈ¡Ò»¸ö¶ÔÏó±¨400£¬¿ÉÄÜ´æÔÚ´«Êä²ÎÊı²»Æ¥ÅäÔ­Òò
+     * æ ¹æ®å­¦ç”Ÿå¯¹è±¡æ¥è¿›è¡Œæ›´æ–°
+     * æ­¤å¤„è·å–ä¸€ä¸ªå¯¹è±¡æŠ¥400ï¼Œå¯èƒ½å­˜åœ¨ä¼ è¾“å‚æ•°ä¸åŒ¹é…åŸå› 
      */
     @ResponseBody
     @RequestMapping(value = "/studentUpdateById", method = RequestMethod.POST)
@@ -79,7 +79,7 @@ public class StudentController {
 //        user.setUserId(Integer.valueOf(userId));
 //        User user = userService.queryById(userId);
 //        if (user == null) {
-//            System.out.println("ÓÃ»§²»´æÔÚ!`");
+//            System.out.println("ç”¨æˆ·ä¸å­˜åœ¨!`");
 //            return null;
 //        }
 //        if (introduction != null && !"".equals(introduction)) {

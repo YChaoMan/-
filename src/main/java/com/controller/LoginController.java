@@ -1,4 +1,4 @@
-package com.controller;
+ï»¿package com.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +23,9 @@ public class LoginController {
     private UserService userService;
 
     /*
-     * Ò»¸öµÇÂ¼Controller£¬¸ù¾İµÇÂ¼Ê±µÄÓÃ»§ÃûºÍ±àºÅÀ´½øĞĞÅĞ¶Ï¡£
-     * Èç¹ûÊÇÀÏÊ¦¾ÍÖ±½ÓÌøµ½manager.jsp
-     * Èç¹ûÊÇÑ§ÉúÖ±½ÓÌøµ½StudentController
+     * ä¸€ä¸ªç™»å½•Controllerï¼Œæ ¹æ®ç™»å½•æ—¶çš„ç”¨æˆ·åå’Œç¼–å·æ¥è¿›è¡Œåˆ¤æ–­ã€‚
+     * å¦‚æœæ˜¯è€å¸ˆå°±ç›´æ¥è·³åˆ°manager.jsp
+     * å¦‚æœæ˜¯å­¦ç”Ÿç›´æ¥è·³åˆ°StudentController
      */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -46,7 +46,7 @@ public class LoginController {
 //        }
         User user = userService.queryByIdAndName(userName, password);
         if (user != null) {
-            if (user.isIdentity()) {   // Èç¹ûÊÇÀÏÊ¦
+            if (user.isIdentity()) {   // å¦‚æœæ˜¯è€å¸ˆ
                 url = request.getContextPath() + "/RedirectController/jspSendRedirect";
                 count = 1;
             } else {
