@@ -1,26 +1,26 @@
-package com.service;
+ï»¿package com.service;
 
 import java.util.List;
 
 import com.entity.Course;
 
 /**
- * ¿Î³Ì±í·şÎñ½Ó¿Ú
+ * è¯¾ç¨‹è¡¨æœåŠ¡æ¥å£
  */
 public interface CourseService {
 
-    // ĞÂÔö¿Î³Ì
+    // æ–°å¢è¯¾ç¨‹
     int insert(Course course);
     
-    // ²éÑ¯ËùÓĞµÄ¿Î³ÌĞÅÏ¢
+    // æŸ¥è¯¢æ‰€æœ‰çš„è¯¾ç¨‹ä¿¡æ¯
     List<Course> queryAll();
     
-    // É¾³ı¿Î³Ì£¬¸ù¾İ¿Î³Ì±àºÅ
+    // åˆ é™¤è¯¾ç¨‹ï¼Œæ ¹æ®è¯¾ç¨‹ç¼–å·
     int delByNumber(String courseNumber);
     
-    // ¸üĞÂ¿Î³ÌĞÅÏ¢£¬¸ù¾İ¿Î³Ì±àºÅ
+    // æ›´æ–°è¯¾ç¨‹ä¿¡æ¯ï¼Œæ ¹æ®è¯¾ç¨‹ç¼–å·
     int updateByNumber(Course course);
 
-    // Ìõ¼ş²éÑ¯
+    // æ¡ä»¶æŸ¥è¯¢
     Course queryByCondition(Course course);
 }

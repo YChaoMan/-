@@ -1,4 +1,4 @@
-package com.service;
+ï»¿package com.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,34 +6,34 @@ import java.util.Map;
 import com.entity.User;
 
 /**
- * ÓÃ»§±í·şÎñ½Ó¿Ú
+ * ç”¨æˆ·è¡¨æœåŠ¡æ¥å£
  */
 public interface UserService {
 
-    // ĞÂÔö¿Î³Ì
+    // æ–°å¢è¯¾ç¨‹
     int insert(User user);
     
-    // ¸ù¾İÉí·İ²éÑ¯²éÕÒÓÃ»§,¡¾È«²¿²éÑ¯¡¿
+    // æ ¹æ®èº«ä»½æŸ¥è¯¢æŸ¥æ‰¾ç”¨æˆ·,ã€å…¨éƒ¨æŸ¥è¯¢ã€‘
     List<User> queryAll(Map<String, Object> queryMap);
     
-    // »ñÈ¡×Ü¼ÇÂ¼
+    // è·å–æ€»è®°å½•
     int getTotalRow();
     
-    // ¸ù¾İÃû³Æ²éÕÒÓÃ»§
+    // æ ¹æ®åç§°æŸ¥æ‰¾ç”¨æˆ·
     User queryByName(String userName);
     
-    // É¾³ıÓÃ»§¡¾¸ù¾İÓÃ»§±àºÅ½øĞĞÉ¾³ı¡¿
+    // åˆ é™¤ç”¨æˆ·ã€æ ¹æ®ç”¨æˆ·ç¼–å·è¿›è¡Œåˆ é™¤ã€‘
     int delById(Integer userId);
     
-    // ĞŞ¸ÄÓÃ»§£¬¡¾ĞŞ¸ÄĞÕÃû£¬ĞÔ±ğ£¬³öÉúÈÕÆÚ£¬¸öÈË½éÉÜ¡¿£¬managerÊÇÅĞ¶ÏÊÇ·ñÊÇ¹ÜÀíÔ±µÇÂ¼
+    // ä¿®æ”¹ç”¨æˆ·ï¼Œã€ä¿®æ”¹å§“åï¼Œæ€§åˆ«ï¼Œå‡ºç”Ÿæ—¥æœŸï¼Œä¸ªäººä»‹ç»ã€‘ï¼Œmanageræ˜¯åˆ¤æ–­æ˜¯å¦æ˜¯ç®¡ç†å‘˜ç™»å½•
     int updateById(User user, boolean manager);
     
-    // Ìõ¼ş²éÑ¯£¬¡¾¸ù¾İÓÃ»§id½øĞĞ²éÕÒ¡¿
+    // æ¡ä»¶æŸ¥è¯¢ï¼Œã€æ ¹æ®ç”¨æˆ·idè¿›è¡ŒæŸ¥æ‰¾ã€‘
     User queryById(String userId);
     
-    // Ìõ¼ş²éÑ¯£¬¡¾¸ù¾İ±àºÅºÍÓÃ»§Ãû³Æ½øĞĞ²éÕÒ¡¿
+    // æ¡ä»¶æŸ¥è¯¢ï¼Œã€æ ¹æ®ç¼–å·å’Œç”¨æˆ·åç§°è¿›è¡ŒæŸ¥æ‰¾ã€‘
     User queryByIdAndName(String userName, String password);
     
-    // Á¬±í²éÑ¯
+    // è¿è¡¨æŸ¥è¯¢
     List<User> queryByUserInnerGradeInnerCourse(String type, String courseNumber);
 }

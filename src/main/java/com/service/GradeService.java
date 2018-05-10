@@ -1,4 +1,4 @@
-package com.service;
+ï»¿package com.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,34 +6,34 @@ import java.util.Map;
 import com.entity.Grade;
 
 /**
- * ³É¼¨±í·şÎñ½Ó¿Ú
+ * æˆç»©è¡¨æœåŠ¡æ¥å£
  */
 public interface GradeService {
 
-    // ²éÑ¯È«²¿³É¼¨ĞÅÏ¢
+    // æŸ¥è¯¢å…¨éƒ¨æˆç»©ä¿¡æ¯
     List<Grade> queryAll();
     
-    // ĞÂÔö³É¼¨£¬¡¾¿Î³Ì±àºÅ£¬³É¼¨¡¿
+    // æ–°å¢æˆç»©ï¼Œã€è¯¾ç¨‹ç¼–å·ï¼Œæˆç»©ã€‘
     void insert(Map<String, Object> map);
     
-    // É¾³ı³É¼¨ĞÅÏ¢¡¾¸ù¾İ¿Î³Ì±àºÅ½øĞĞÉ¾³ı¡¿
+    // åˆ é™¤æˆç»©ä¿¡æ¯ã€æ ¹æ®è¯¾ç¨‹ç¼–å·è¿›è¡Œåˆ é™¤ã€‘
     int delByCourseNumber(String courseNumber);
     
-    // É¾³ı³É¼¨ĞÅÏ¢¡¾¸ù¾İÑ§Éú±àºÅ½øĞĞÉ¾³ı¡¿
+    // åˆ é™¤æˆç»©ä¿¡æ¯ã€æ ¹æ®å­¦ç”Ÿç¼–å·è¿›è¡Œåˆ é™¤ã€‘
     int delById(Integer userId);
     
-    // ³É¼¨£¬¡¾ĞŞ¸Ä¿Î³Ì³É¼¨£¬¸ù¾İÓÃ»§±àºÅºÍ¿Î³Ì±àºÅ½øĞĞÊ¶±ğ¡¿
+    // æˆç»©ï¼Œã€ä¿®æ”¹è¯¾ç¨‹æˆç»©ï¼Œæ ¹æ®ç”¨æˆ·ç¼–å·å’Œè¯¾ç¨‹ç¼–å·è¿›è¡Œè¯†åˆ«ã€‘
     int updateById(Grade grade, boolean del);
     
-    // Ìõ¼ş²éÑ¯£¬¡¾¸ù¾İÓÃ»§±àºÅ½øĞĞ²éÕÒ¡¿
+    // æ¡ä»¶æŸ¥è¯¢ï¼Œã€æ ¹æ®ç”¨æˆ·ç¼–å·è¿›è¡ŒæŸ¥æ‰¾ã€‘
     List<Grade> queryById(String userId);
     
-    // ¸ù¾İ±àºÅºÍÑ§Éú±àºÅ½øĞĞ²éÑ¯
+    // æ ¹æ®ç¼–å·å’Œå­¦ç”Ÿç¼–å·è¿›è¡ŒæŸ¥è¯¢
     Grade queryByIdAndNumber(Grade grade);
     
     /*
-     * ÕâÀïĞÂÔö±¾ÖÊÉÏÊÇĞŞ¸Ä³É¼¨.
-     * ¸ù¾İÓÃ»§µÄ±àºÅºÍ¿Î³ÌÃû³Æ½øĞĞ²éÕÒ
+     * è¿™é‡Œæ–°å¢æœ¬è´¨ä¸Šæ˜¯ä¿®æ”¹æˆç»©.
+     * æ ¹æ®ç”¨æˆ·çš„ç¼–å·å’Œè¯¾ç¨‹åç§°è¿›è¡ŒæŸ¥æ‰¾
      */
     int saveScoreByIdAndCourseNumber(Grade grade);
 }
