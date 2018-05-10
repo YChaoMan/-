@@ -1,4 +1,4 @@
-package com.entity;
+ï»¿package com.entity;
 
 import java.util.Date;
 import java.util.List;
@@ -7,16 +7,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
 
-    private Integer userId; // ÓÃ»§±àºÅ
-    private String userName; // ÓÃ»§ÐÕÃû
-    private Integer sex; // ÐÔ±ð
+    private Integer userId; // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+    private String userName; // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+    private Integer sex; // ï¿½Ô±ï¿½
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday; // ³öÉúÈÕÆÚ
-    private boolean identity; // Éí·ÝÐÅÏ¢
-    private String introduction; // ×ÔÎÒ½éÉÜ
+    private Date birthday; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private boolean identity; // ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    private String introduction; // ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime; // ´´½¨Ê±¼ä
-    private List<Grade> gradeList; // ±£´æ´Ó±íµÄ¼¯ºÏ
+    private Date createTime; // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    private List<Grade> gradeList; // ï¿½ï¿½ï¿½ï¿½Ó±ï¿½Ä¼ï¿½ï¿½ï¿½
     
     public User() {
     }
@@ -84,5 +84,13 @@ public class User {
     public void setGradeList(List<Grade> gradeList) {
         this.gradeList = gradeList;
     }
+
+    @Override
+    public String toString() {
+        return "[" + userName + "." + userId + "." +createTime + "." + introduction + "." + sex
+            + "." + birthday + "." + identity + "]";
+    }
+    
+    
 
 }

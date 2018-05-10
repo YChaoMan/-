@@ -1,11 +1,11 @@
-package com.entity;
+ï»¿package com.entity;
 
 public class Grade {
 
-    private Integer gradeId; // ³É¼¨±í±àºÅ
-    private Integer userId; // Ñ§Éú±àºÅ
-    private String courseNumber; // ¿Î³Ì±àºÅ
-    private Double score; // ·ÖÊı
+    private Integer gradeId; // æˆç»©è¡¨ç¼–å·
+    private Integer userId; // å­¦ç”Ÿç¼–å·
+    private String courseNumber; // è¯¾ç¨‹ç¼–å·
+    private Double score; // åˆ†æ•°
 
     public Integer getGradeId() {
         return gradeId;

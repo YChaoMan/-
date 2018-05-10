@@ -1,10 +1,10 @@
-package com.entity;
+ï»¿package com.entity;
 
 public class Course {
 
-    private Integer courseId; // ¿Î³Ì±íÖ÷¼ü
-    private String courseNumber; // ¿Î³Ì±àºÅ
-    private String courseName; // ¿Î³ÌÃû³Æ
+    private Integer courseId; // è¯¾ç¨‹è¡¨ä¸»é”®
+    private String courseNumber; // è¯¾ç¨‹ç¼–å·
+    private String courseName; // è¯¾ç¨‹åç§°
 
     public Integer getCourseId() {
         return courseId;

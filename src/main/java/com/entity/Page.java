@@ -1,15 +1,15 @@
-package com.entity;
+ï»¿package com.entity;
 
 /**
- * ·ÖÒ³Àà£¬ÓÃÓÚ·â×°·ÖÒ³µÄÊôĞÔ
+ * åˆ†é¡µç±»ï¼Œç”¨äºå°è£…åˆ†é¡µçš„å±æ€§
  */
 public class Page {
 
-    private int currentPage; // µ±Ç°Ò³Êı
-    private int startRow; // µ±Ç°¼ÇÂ¼
-    private int totalPage; // ×ÜÒ³Êı
-    private int totalRow; // ×Ü¼ÇÂ¼
-    private int pageSize; // ÏÔÊ¾µÄÊıÁ¿
+    private int currentPage; // å½“å‰é¡µæ•°
+    private int startRow; // å½“å‰è®°å½•
+    private int totalPage; // æ€»é¡µæ•°
+    private int totalRow; // æ€»è®°å½•
+    private int pageSize; // æ˜¾ç¤ºçš„æ•°é‡
 
     public int getCurrentPage() {
         return currentPage;
