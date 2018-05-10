@@ -1,5 +1,6 @@
-package com.service.Impl;
+ï»¿package com.service.Impl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.dao.CourseDao;
 import com.dao.GradeDao;
+import com.dao.UserAddDao;
 import com.dao.UserDao;
 import com.entity.Course;
 import com.entity.Grade;
 import com.entity.User;
+import com.entity.UserAdd;
 import com.service.GradeService;
 
 @Service
@@ -23,10 +26,29 @@ public class GradeServiceImpl implements GradeService {
     private CourseDao courseDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserAddDao userAddDao;
 
     public List<Grade> queryAll() {
-        return this.gradeDao.queryAll();
+        List<Grade> gradeList = this.gradeDao.queryAll();
+        Iterator<Grade> gradeIter = this.gradeDao.queryByGroup().iterator();
+        while (gradeIter.hasNext()) {
+            int count = this.courseDao.queryAll().size();
+            List<Grade> gradesList = this.gradeDao.queryById(gradeIter.next().getUserId());
+            Iterator<Grade> gradesIter = gradesList.iterator();
+            while (gradesIter.hasNext()) {
+                Grade grade = gradesIter.next();
+                if (grade.getScore() == 0.0) {
+                    count--;
+                }
+                if (count <= 0) {
+                    this.userAddDao.updateByUserAddId2(grade.getUserId());
+                }
+            }
+        }
+        return gradeList;
     }
+        
 
     public void insert(Map<String, Object> map) {
         this.gradeDao.insert(map);
@@ -44,13 +66,13 @@ public class GradeServiceImpl implements GradeService {
     }
 
     /*
-     * ¸ù¾İ´«½øµÄ¶ÔÏó½øĞĞ¸úĞÂ²Ù×÷¡£
+     * éè§„åµæµ¼çŠºç¹˜é¨å‹«î‡®ç’Â¤ç¹˜ç›å²ƒçª¡é‚ç‰ˆæ·æµ£æº¿ï¿½ï¿½
      */
     public int updateById(Grade grade, boolean del) {
         if (grade == null) {
             return 0;
         }
-        // È¡³ö¶ÔÏóµÄÊôĞÔÖµ
+        // é™æ §åš­ç€µç¡…è–„é¨å‹«ç˜é¬Ñƒï¿½ï¿½
         Integer userId = grade.getUserId();
         String courseNumber = grade.getCourseNumber();
         Double score = grade.getScore();
@@ -60,7 +82,7 @@ public class GradeServiceImpl implements GradeService {
         if (courseNumber == null || "".equals(courseNumber)) {
             return 0;
         }
-        if (!del) { // Èç¹û²»ÊÇÉ¾³ı²Ù×÷£¬Ôò²»ÅĞ¶Ï·ÖÊıµÄÈ¡Öµ
+        if (!del) { // æ¿¡å‚›ç‰æ¶“å¶†æ§¸é’çŠ»æ«é¿å¶„ç¶”é”›å±½å¯æ¶“å¶…å½é‚î…åéæ‰®æ®‘é™æ §ï¿½ï¿½
             if (score == null || "".equals(score)) {
                 return 0;
             }
@@ -68,36 +90,40 @@ public class GradeServiceImpl implements GradeService {
         System.out.println("......................");
         Course courses = new Course();
         courses.setCourseNumber(courseNumber);
-        Course course = courseDao.queryByCondition(courses);    // ²éÑ¯¸Ã¿Î³ÌÊÇ·ñÒ²´æÔÚ¿Î³Ì±íÖĞ
-        if (course == null) { // Èç¹ûÔÚ¿Î³Ì±íÖĞÕÒ²»µ½¸Ã¿Î³Ì
+        Course course = courseDao.queryByCondition(courses);    // éŒãƒ¨î‡—ç’‡ãƒ¨î‡³ç»‹å¬«æ§¸éšï¸¿ç¯ƒç€›æ¨ºæ¹ªç’‡å‰§â–¼ç›ã„¤è…‘
+        if (course == null) { // æ¿¡å‚›ç‰é¦ã„¨î‡³ç»‹å¬­ã€ƒæ¶“î…Ÿå£˜æ¶“å¶…åŸŒç’‡ãƒ¨î‡³ç»‹ï¿½
             return 0;
         }
-        Grade grades = new Grade(); // ´´½¨Ò»¸ö²ÎÊıÔØÌå
+        UserAdd userAdd = userAddDao.selectByUserId(grade.getUserId());
+        if (userAdd != null) {
+            userAddDao.updateByUserAddId(grade.getUserId());
+        }
+        Grade grades = new Grade(); // é’æ¶˜ç¼“æ¶“ï¿½æ¶“î„å¼¬éæ‹Œæµ‡æµ£ï¿½
         grades.setUserId(userId);
         grades.setCourseNumber(courseNumber);
-        Grade grade2 = queryByIdAndNumber(grades);  // ¸ù¾İÈ¡³öµÄÊôĞÔÖµ²éÑ¯ĞŞ¸ÄÇ°µÄ¶ÔÏó
+        Grade grade2 = queryByIdAndNumber(grades);  // éè§„åµé™æ §åš­é¨å‹«ç˜é¬Ñƒï¿½å…¼ç…¡ç’‡î­æ…¨é€ç‘°å¢ é¨å‹«î‡®ç’ï¿½
         System.out.println("....................." + grade2);
-        if (grade2 == null) {   // Èç¹ûÕÒ²»µ½µ±Ç°Ñ§ÉúµÄµ±Ç°¿Î³Ì
+        if (grade2 == null) {   // æ¿¡å‚›ç‰éµå¥ç¬‰é’æ¿ç¶‹é“å¶…î„Ÿé¢ç†ºæ®‘è¤°æ’³å¢ ç’‡å‰§â–¼
             return 0;
         }
-        if (del) {  // É¾³ı³É¼¨Ê±delÎªtrue
+        if (del) {  // é’çŠ»æ«é´æ„®å“—éƒç¦¿elæ¶“ç°rue
             grade2.setScore(0.0);
         } else {
-            grade2.setScore(score); // ½øĞĞĞŞ¸Ä
+            grade2.setScore(score); // æ©æ¶œî”‘æ·‡î†½æ•¼
         }
         return this.gradeDao.updateById(grade2);
     }
 
     public List<Grade> queryById(String userId) {
         if (userId == null || "".equals(userId)) {
-            System.out.println("·Ç·¨ÊäÈë!");
+            System.out.println("é—ˆç‚´ç¡¶æˆæ’³å†!");
             return null;
         }
         return this.gradeDao.queryById(Integer.valueOf(userId));
     }
 
     public Grade queryByIdAndNumber(Grade grade) {
-        Integer userId = grade.getUserId();    //¡¡È¡³ö¶ÔÏóÖĞµÄÊôĞÔÖµ
+        Integer userId = grade.getUserId();    //éŠ†ï¿½é™æ §åš­ç€µç¡…è–„æ¶“î… æ®‘çç‚´ï¿½Ñƒï¿½ï¿½
         String courseNumber = grade.getCourseNumber();
         if (userId == null || "".equals(userId)) {
             return null;
@@ -109,8 +135,8 @@ public class GradeServiceImpl implements GradeService {
     }
     
     /*
-     * ÕâÀïĞÂÔö±¾ÖÊÉÏÊÇĞŞ¸Ä³É¼¨.
-     * ¸ù¾İÓÃ»§µÄ±àºÅºÍ¿Î³ÌÃû³Æ½øĞĞ²éÕÒ
+     * æ©æ¬“å™·é‚æ¿î–ƒéˆî„ƒå·æ¶“å©ƒæ§¸æ·‡î†½æ•¼é´æ„®å“—.
+     * éè§„åµé¢ã„¦åŸ›é¨å‹­ç´ªé™å³°æ‹°ç’‡å‰§â–¼éšå¶‡Ğæ©æ¶œî”‘éŒãƒ¦å£˜
      */
     public int saveScoreByIdAndCourseNumber(Grade grade) {
         int count = 0;
@@ -118,11 +144,11 @@ public class GradeServiceImpl implements GradeService {
         if (grade2 == null) {
             return 0;
         }
-        if (grade2.getScore() != 0.0) { // µ±¸ÃÓÃ»§µÄÕâÃÅ¿Î³Ì·ÖÊıÒÑ¾­´æÔÚ£¬ÄÇÃ´²»ÄÜĞÂÔö
+        if (grade2.getScore() != 0.0) { // è¤°æ’¹î‡šé¢ã„¦åŸ›é¨å‹®ç¹–é—‚ã„¨î‡³ç»‹å¬ªåéæ¿å‡¡ç¼å¿“ç“¨é¦îŸ’ç´é–­ï½„ç®æ¶“å¶ˆå…˜é‚æ¿î–ƒ
             return 0;
         }
         User user = userDao.queryById(grade2.getUserId());
-        if (user != null && !user.isIdentity()) {   // Èç¹û¸ÃÑ§Éú´æÔÚ²¢ÇÒÉí·İÊÇÑ§Éú
+        if (user != null && !user.isIdentity()) {   // æ¿¡å‚›ç‰ç’‡ãƒ¥î„Ÿé¢ç†·ç“¨é¦ã„¥è‹Ÿæ¶“æ—‡éŸ©æµ èŠ¥æ§¸ç€›ï¸¾æ•“
             if (grade2.getScore() == 0.0) {
                 grade2.setUserId(grade2.getUserId());
                 grade2.setCourseNumber(grade2.getCourseNumber());

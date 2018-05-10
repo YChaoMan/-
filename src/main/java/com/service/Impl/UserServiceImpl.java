@@ -1,4 +1,4 @@
-package com.service.Impl;
+ï»¿package com.service.Impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -14,10 +14,11 @@ import org.springframework.stereotype.Service;
 
 import com.dao.CourseDao;
 import com.dao.GradeDao;
+import com.dao.UserAddDao;
 import com.dao.UserDao;
 import com.entity.Course;
-import com.entity.Page;
 import com.entity.User;
+import com.entity.UserAdd;
 import com.service.UserService;
 
 @Service
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
     private CourseDao courseDao;
     @Autowired
     private GradeDao gradeDao;
+    @Autowired
+    private UserAddDao userAddDao;
+    
     private String tempType = null;
     
     public List<User> queryAll(Map<String, Object> queryMap) {
@@ -46,16 +50,16 @@ public class UserServiceImpl implements UserService {
         } else {
 //            if (!condition.matches("[0-9]")) {
 //                queryMap.remove("condition");
-//                if ("ÄÐ".equals(condition)) {
+//                if ("ï¿½ï¿½".equals(condition)) {
 //                    condition = "1";
 //                }
 //                if ("Å®".equals(condition)) {
 //                    condition = "0";
 //                }
-//                if ("ÀÏÊ¦".indexOf(condition) != -1) {
+//                if ("ï¿½ï¿½Ê¦".indexOf(condition) != -1) {
 //                    condition = "1";
 //                }
-//                if ("Ñ§Éú".indexOf(condition) != -1) {
+//                if ("Ñ§ï¿½ï¿½".indexOf(condition) != -1) {
 //                    condition = "0";
 //                }
 //                queryMap.put("condition", condition);
@@ -65,7 +69,7 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
-    // »ñÈ¡×Ü¼ÇÂ¼Êý
+    // ï¿½ï¿½È¡ï¿½Ü¼ï¿½Â¼ï¿½ï¿½
     public int getTotalRow() {
         List<User> userList = this.userDao.totalRow();
         return userList.size();
@@ -74,21 +78,24 @@ public class UserServiceImpl implements UserService {
     public int insert(User user) {
         int count = 0;
         String introduction = user.getIntroduction();
-        if (introduction == null) { // Èç¹û¸öÈË½éÉÜÎª¿ÕµÄ»°
+        if (introduction == null) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½ï¿½ï¿½Îªï¿½ÕµÄ»ï¿½
             user.setIntroduction("");
         }
-        user.setCreateTime(new Timestamp(new Date().getTime()));    // ÉèÖÃ´´½¨Ê±¼ä
+        user.setCreateTime(new Timestamp(new Date().getTime()));    // ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
         User userByGrade = queryByName(user.getUserName());
-        if (userByGrade == null) {  // ÊÇ·ñ²»´æÔÚ¸ÃÃû×Ö
+        if (userByGrade == null) {  // ï¿½Ç·ñ²»´ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½
             this.userDao.insert(user);
             List<Course> courseList = this.courseDao.queryAll();
-            if (!user.isIdentity()) {   // Èç¹ûÐÂÔöµÄÉí·Ý²»ÊÇÀÏÊ¦£¬ÄÇÃ´¾ÍÖ±½ÓÐÂÔö¸ÃÓÃ»§µÄ³É¼¨
-                user = queryByName(user.getUserName()); // ÕâÀï¸ù¾ÝÐÕÃû²éÑ¯ÊÇÎªÁËÄÃ³öËùÓÐµÄÊôÐÔ£¬°üÀ¨userId
+            if (!user.isIdentity()) {   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ä³É¼ï¿½
+                System.out.println(userAddDao);
+                System.out.println("...." + queryByName(user.getUserName()).getUserId());
+                userAddDao.insertByUserId(queryByName(user.getUserName()).getUserId());
+                user = queryByName(user.getUserName()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Îªï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½userId
                 Map<String, Object> map2 = new HashMap<String, Object>();
                 map2.put("userId", user.getUserId());
                 map2.put("courseList", courseList);
-                this.gradeDao.insert(map2); // ¹ØÓÚ¸Ã³É¼¨µÄ³É¼¨ÐÂÔö
-                count++;    //¡¡Èç¹û³É¼¨Ò²ÐÞ¸Ä³É¹¦£¬ÄÇÃ´´ÎÊý²Å»á½øÐÐ¼ÓÒ»
+                this.gradeDao.insert(map2); // ï¿½ï¿½ï¿½Ú¸Ã³É¼ï¿½ï¿½Ä³É¼ï¿½ï¿½ï¿½ï¿½ï¿½
+                count++;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¼ï¿½Ò²ï¿½Þ¸Ä³É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½Ð¼ï¿½Ò»
             }
         }
         return count;
@@ -106,15 +113,16 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return 0;
         }
-        if (gradeDao.queryById(userId) != null) {   // Èç¹û³É¼¨±íÖÐ´æÔÚ¸ÃÑ§ÉúÐÅÏ¢
+        if (gradeDao.queryById(userId) != null) {   // ï¿½ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ú¸ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Ï¢
             this.gradeDao.delById(user.getUserId());
+            this.userAddDao.delByUserAddId(user.getUserId());
         }
         System.out.println("del user success !");
         return this.userDao.delById(user);
     }
 
     public int updateById(User user, boolean manager) {
-        boolean studentBoo = true;    // ±ê¼ÇÊÇ·ñÊÇÑ§Éú
+        boolean studentBoo = true;    // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½
         if (user == null) {
             return 0;
         }
@@ -126,39 +134,41 @@ public class UserServiceImpl implements UserService {
         if (courseList == null || courseList.size() <= 0) {
             return  0;
         }
-        // ²éÑ¯Ö®Ç°µÄ¶ÔÏó
+        // ï¿½ï¿½Ñ¯Ö®Ç°ï¿½Ä¶ï¿½ï¿½ï¿½
         User userBefore = queryById(String.valueOf(user.getUserId()));
         if (userBefore == null) {
             return 0;
         }
-        // »ñµÃ¸ü¸ÄÖ®Ç°µÄÉí·Ý
+        // ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½
         studentBoo = userBefore.isIdentity();
-        if (manager) {  // Èç¹ûÊÇ¹ÜÀí¶ËµÇÂ¼Ôò¿ÉÒÔµÇÂ¼¶à¸öÊôÐÔ
+        if (manager) {  // ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½Ëµï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ôµï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             userBefore.setIdentity(user.isIdentity());
             userBefore.setUserName(user.getUserName());
             userBefore.setSex(user.getSex());
             userBefore.setBirthday(user.getBirthday());
             userBefore.setIntroduction(user.getIntroduction());
         } else {
-            userBefore.setIntroduction(user.getIntroduction()); // Èç¹ûÊÇÓÃ»§¶ËµÇÂ¼ÔòÖ»ÐÞ¸Ä¸öÈË½éÉÜ
+            userBefore.setIntroduction(user.getIntroduction()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ëµï¿½Â¼ï¿½ï¿½Ö»ï¿½Þ¸Ä¸ï¿½ï¿½Ë½ï¿½ï¿½ï¿½
         }
         int count = this.userDao.updateById(userBefore);
-        if (!userBefore.isIdentity()) { // Èç¹û²»ÊÇÀÏÊ¦
-            if (userBefore.isIdentity() != studentBoo) {    // Èç¹ûÇ°ºóÐÞ¸ÄµÄÉí·Ý²»Í¬
+        if (!userBefore.isIdentity()) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦
+            if (userBefore.isIdentity() != studentBoo) {    // ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Þ¸Äµï¿½ï¿½ï¿½Ý²ï¿½Í¬
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("userId", userId);
                 map.put("courseList", courseList);
+                this.userAddDao.insertByUserId(userId);
                 this.gradeDao.insert(map);
             }
-        } else {    // ÐÞ¸ÄÐÞ¸ÄºóµÄ³É¼¨ÊÇÀÏÊ¦£¬ÔòÉ¾³ýÖ®Ç°µÄ³É¼¨ÐÅÏ¢
+        } else {    // ï¿½Þ¸ï¿½ï¿½Þ¸Äºï¿½Ä³É¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ö®Ç°ï¿½Ä³É¼ï¿½ï¿½ï¿½Ï¢
             this.gradeDao.delById(userBefore.getUserId());
+            this.userAddDao.delByUserAddId(userBefore.getUserId());
         }
         return count;
     }
 
     public User queryById(String userId) {
         if (userId == null || "".equals(userId)) {
-            System.out.println("·Ç·¨ÊäÈë!");
+            System.out.println("ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½!");
             return null;
         }
         return this.userDao.queryById(Integer.valueOf(userId));
@@ -167,7 +177,7 @@ public class UserServiceImpl implements UserService {
     public User queryByIdAndName(String userName, String password) {
         boolean usernameExists = (userName == null || "".equals(userName)); 
         boolean passwordExists = (password == null || "".equals(password));
-        if (usernameExists || passwordExists) { // Èç¹ûÕâÁ½¸öÖµÓÐÒ»¸öÎª¿Õ
+        if (usernameExists || passwordExists) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½
             return null;
         }
         User user = new User();
@@ -178,7 +188,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> queryByUserInnerGradeInnerCourse(String type, String courseNumber) {
         if (type == null || "".equals(type)) {
-            type = tempType;    // ±£´æÉý½µÐòµÄ×´Ì¬
+            type = tempType;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
         } else {
             tempType = type;
         }

@@ -1,4 +1,4 @@
-package com.service.Impl;
+ï»¿package com.service.Impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class CourseServiceImpl implements CourseService {
         }
         Course courses = new Course();
         courses.setCourseNumber(courseNumber);
-        if (queryByCondition(courses) == null) {    // Èç¹ûÕÒ²»¸Ã¿Î³Ì±àºÅÄÇÃ´¾ÍĞÂÔö
+        if (queryByCondition(courses) == null) {    // å¦‚æœæ‰¾ä¸è¯¥è¯¾ç¨‹ç¼–å·é‚£ä¹ˆå°±æ–°å¢
             this.courseDao.insert(course);
             count++;
             List<Course> courseList = new ArrayList<Course>();
@@ -49,7 +49,7 @@ public class CourseServiceImpl implements CourseService {
                     Map<String, Object> maps = new HashMap<String, Object>();
                     maps.put("userId", user.getUserId());
                     maps.put("courseList", courseList);
-                    gradeDao.insert(maps);  // ²åÈë¿Î³ÌµÄÊ±ºòÒª¶Ô³É¼¨±í¸üĞÂÒ»´Î
+                    gradeDao.insert(maps);  // æ’å…¥è¯¾ç¨‹çš„æ—¶å€™è¦å¯¹æˆç»©è¡¨æ›´æ–°ä¸€æ¬¡
                 }
             }
         }
@@ -80,13 +80,13 @@ public class CourseServiceImpl implements CourseService {
             return 0;
         }
         Course courses = new Course();
-        courses.setCourseNumber(courseNumber);  // ÒòÎª¿Î³Ì±àºÅÊÇ²»¿É¸Ä±äµÄËùÒÔ¸ù¾İ¿Î³Ì±àºÅÀ´²éÕÒÖ®Ç°µÄĞÅÏ¢
-        Course courseBefore = queryByCondition(courses);    // ²éÑ¯³öÖ®Ç°µÄĞÅÏ¢
+        courses.setCourseNumber(courseNumber);  // å› ä¸ºè¯¾ç¨‹ç¼–å·æ˜¯ä¸å¯æ”¹å˜çš„æ‰€ä»¥æ ¹æ®è¯¾ç¨‹ç¼–å·æ¥æŸ¥æ‰¾ä¹‹å‰çš„ä¿¡æ¯
+        Course courseBefore = queryByCondition(courses);    // æŸ¥è¯¢å‡ºä¹‹å‰çš„ä¿¡æ¯
         if (courseBefore != null) {
             if (courseName != null && !"".equals(courseName)) {
-                courses.setCourseNumber(null);    // ÒòÎª¿Î³Ì±àºÅÊÇ²»ÄÜĞŞ¸Ä£¬ËùÒÔÖ»ĞèÒª´©Ò»¸ö²ÎÊı¹ıÈ¥¾ÍĞĞ
+                courses.setCourseNumber(null);    // å› ä¸ºè¯¾ç¨‹ç¼–å·æ˜¯ä¸èƒ½ä¿®æ”¹ï¼Œæ‰€ä»¥åªéœ€è¦ç©¿ä¸€ä¸ªå‚æ•°è¿‡å»å°±è¡Œ
                 courses.setCourseName(courseName);
-                if (queryByCondition(courses) == null) {    // Èç¹û¸Ã¿Î³ÌÃû³Æ²»´æÔÚ
+                if (queryByCondition(courses) == null) {    // å¦‚æœè¯¥è¯¾ç¨‹åç§°ä¸å­˜åœ¨
                     courseBefore.setCourseNumber(courseNumber);
                     courseBefore.setCourseName(courseName);
                     count = this.courseDao.updateByNumber(courseBefore);
@@ -97,15 +97,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /*
-     * ¸Ã·½·¨²éÑ¯Ö»ÄÜ´«Ò»¸öÌõ¼ş£¬¿Î³Ì±àºÅ | ¿Î³ÌÃû³Æ
+     * è¯¥æ–¹æ³•æŸ¥è¯¢åªèƒ½ä¼ ä¸€ä¸ªæ¡ä»¶ï¼Œè¯¾ç¨‹ç¼–å· | è¯¾ç¨‹åç§°
      */
     public Course queryByCondition(Course course) {
         String courseNumber = course.getCourseNumber();
         String courseName = course.getCourseName();
-        // Èç¹ûÆäÖĞÒ»¸ö²»Îª¿ÕÄÇÃ´¾ÍÎªÕæ
+        // å¦‚æœå…¶ä¸­ä¸€ä¸ªä¸ä¸ºç©ºé‚£ä¹ˆå°±ä¸ºçœŸ
         boolean courseNoNull = (courseNumber != null || courseName != null);
         boolean courseNotEmpty = (!"".equals(courseNumber) || !"".equals(courseNumber));
-        if (!courseNoNull || !courseNotEmpty) { // Èç¹ûÉÏÃæµÄÌõ¼ş²»Âú×ã
+        if (!courseNoNull || !courseNotEmpty) { // å¦‚æœä¸Šé¢çš„æ¡ä»¶ä¸æ»¡è¶³
             return null;
         }
         return this.courseDao.queryByCondition(course);
